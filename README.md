@@ -1,1 +1,93 @@
-<h1 align="center">📰 Monitoramento Automatizado de Notícias com Python, Airflow, MongoDB, Streamlit e Telegram</h1> <p align="center"> <img src="https://img.shields.io/badge/python-3.10-blue" /> <img src="https://img.shields.io/badge/airflow-%23017CEE" /> <img src="https://img.shields.io/badge/mongodb-%2347A248" /> <img src="https://img.shields.io/badge/streamlit-%23FF4B4B" /> <img src="https://img.shields.io/badge/telegram-%2326A5E4" /> </p> <p align="center"> <img src="https://github.com/user-attachments/assets/3a5d4e7d-4ad3-4ea2-8470-b3bdbb153f50" alt="dashboard" /> </p> <p> Esse projeto nasceu com uma missão clara: automatizar a coleta, armazenamento e visualização de notícias sobre um tema específico — no caso, o Corinthians — e entregar tudo isso de forma visual, simples e (por que não?) bonita. A stack usada é moderna, robusta e 100% em Python: Airflow para orquestração, MongoDB para armazenamento, Streamlit para dashboard e Telegram para envio automático de notícias. </p> <h2>🎯 Objetivo</h2> <p> Monitorar em tempo real as últimas notícias sobre o Corinthians, salvando essas informações em um banco de dados, exibindo análises em um dashboard web e notificando novidades diretamente no Telegram. </p> <h2>🧠 Arquitetura do Projeto</h2> <p> Tudo gira em torno de uma DAG do Airflow que roda periodicamente (diária ou a cada X minutos). Ela coleta notícias, limpa os dados, armazena no MongoDB e dispara alertas. Um Streamlit acessa esse mesmo banco e mostra tudo com gráficos e filtros interativos. </p> <h2>📦 Estrutura de Pastas</h2> <pre><code>. ├── dags/ │ └── noticias_corinthians_dag.py # DAG principal com lógica de ETL ├── dashboard/ │ └── streamlit_app.py # Dashboard interativo com Streamlit ├── data/ │ └── (MongoDB container + volume persistente) ├── telegram_sender.py # Script que envia notícias pro Telegram ├── docker-compose.yml # Ambiente completo com containers ├── Dockerfile # Configuração do ambiente Python ├── config_secrets.py # Variáveis sensíveis e chaves de API ├── requirements.txt # Dependências do projeto └── .env # Variáveis de ambiente (Spotify-style) </code></pre> <h2>🛠️ Tecnologias Utilizadas</h2> <ul> <li><strong>Apache Airflow:</strong> Orquestra as tarefas de coleta e armazenamento</li> <li><strong>MongoDB:</strong> Banco de dados NoSQL leve e flexível para armazenar notícias</li> <li><strong>Python:</strong> Linguagem central do projeto</li> <li><strong>Requests e BeautifulSoup:</strong> Scraping de notícias</li> <li><strong>Telegram Bot API:</strong> Envia as notícias em tempo real para um grupo</li> <li><strong>Streamlit:</strong> Dashboard web interativo para visualização dos dados</li> <li><strong>Docker:</strong> Tudo containerizado para rodar fácil em qualquer máquina</li> </ul> <h2>📊 Funcionalidades</h2> <ul> <li>⏱️ Agendamento automático com Airflow</li> <li>🔍 Scraping de notícias relevantes sobre o Corinthians</li> <li>💾 Armazenamento no MongoDB com estrutura limpa</li> <li>📤 Envio de notícias em tempo real para grupos no Telegram</li> <li>📈 Visualização de tendências e manchetes por data no dashboard</li> <li>⚙️ Totalmente configurável via `.env`</li> </ul> <h2>📸 Dashboard em Streamlit</h2> <p> O app em Streamlit traz filtros por data, visualização das manchetes e um resumo geral das notícias coletadas. Ideal para jornalistas, torcedores, analistas ou apenas curiosos. </p> <p align="center"> <img src="https://github.com/user-attachments/assets/8c6e3a5c-c130-4d6a-84d0-819cadad6f8f" alt="dashboard preview"/> </p> <h2>🚀 Como Rodar o Projeto</h2> <ol> <li>Clone o repositório e entre na pasta</li> <li>Configure suas variáveis em <code>.env</code> e <code>config_secrets.py</code></li> <li>Suba os containers com Docker Compose:</li> <pre><code>docker-compose up --build</code></pre> <li>Acesse o Airflow em <code>localhost:8080</code>, o Streamlit em <code>localhost:8501</code></li> <li>Cadastre sua DAG no Airflow e deixe rodando!</li> </ol> <h2>📈 Melhorias Futuras</h2> <ul> <li>✨ Implementar análise de sentimento nas manchetes</li> <li>📌 Suporte a múltiplos temas ou clubes</li> <li>📤 Envio programado de relatórios via e-mail</li> <li>📱 Versão mobile-friendly do dashboard</li> </ul> <h2>👤 Desenvolvido por</h2> <p><strong>Mateus Vicentin</strong> — Um projeto autoral que mistura futebol, dados e automação. Para mais projetos como esse, acesse o <a href="https://github.com/mateusvicentin">GitHub</a> ;)</p>
+<h1 align="center">📰 Monitoramento Automatizado de Notícias com Python, Airflow, MongoDB, Streamlit e Telegram</h1>
+<p align="center">
+  <img src="https://img.shields.io/badge/python-3.10-blue" />
+  <img src="https://img.shields.io/badge/airflow-%23017CEE" />
+  <img src="https://img.shields.io/badge/mongodb-%2347A248" />
+  <img src="https://img.shields.io/badge/streamlit-%23FF4B4B" />
+  <img src="https://img.shields.io/badge/telegram-%2326A5E4" />
+</p>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/986020af-419b-476a-a6c7-5552bc694980" alt="logo" />
+</p>
+
+<p>
+  Este projeto nasceu com uma missão clara: criar uma solução de monitoramento automatizado de notícias com foco no Corinthians.
+  A proposta é simples e poderosa: coletar notícias em tempo real, processar o conteúdo com inteligência artificial, armazenar tudo em um banco de dados flexível, visualizar em um dashboard interativo e enviar alertas instantâneos para o Telegram.
+</p>
+
+<p>
+  Trata-se de um pipeline completo de engenharia de dados, com orquestração via Apache Airflow, scraping com newspaper3k,
+  NLP com spaCy, armazenamento em MongoDB e visualização com Streamlit. A entrega final é uma experiência de monitoramento contínua e em tempo real,
+  ideal para jornalistas, clubes, analistas esportivos ou qualquer pessoa interessada em acompanhar tópicos específicos com profundidade e agilidade.
+</p>
+
+<h2>📌 Visão Geral</h2>
+<p>
+  No centro da arquitetura está uma DAG no Apache Airflow que executa rotinas periódicas:
+</p>
+<ul>
+  <li>1️⃣ Realiza o scraping de sites pré-definidos que publicam notícias do Corinthians.</li>
+  <li>2️⃣ Processa os textos extraídos com <strong>análise de entidades nomeadas (NER)</strong>, identificando nomes de jogadores, técnicos, clubes, estádios e organizações.</li>
+  <li>3️⃣ Armazena os dados no MongoDB, incluindo título, conteúdo, data, imagem, fonte e entidades extraídas.</li>
+  <li>4️⃣ Dispara alertas automáticos no Telegram com resumo, imagem e link direto para leitura.</li>
+</ul>
+
+<p>
+  O usuário pode então visualizar tudo isso em um dashboard responsivo construído com Streamlit.
+  A interface permite aplicar filtros por veículo de notícia e por período, visualizar entidades mais citadas,
+  acompanhar a evolução de publicações ao longo dos dias e consultar a notícia completa com imagem e texto.
+</p>
+
+<h2>🧠 Stack de Tecnologias</h2>
+<ul>
+  <li><strong>Python:</strong> A linguagem central utilizada em toda a aplicação — do scraping à visualização.</li>
+  <li><strong>Apache Airflow:</strong> Faz a orquestração da pipeline de dados com tarefas programadas e monitoráveis.</li>
+  <li><strong>MongoDB:</strong> Banco NoSQL utilizado para armazenar as notícias e metadados de forma flexível.</li>
+  <li><strong>newspaper3k:</strong> Biblioteca de scraping de artigos, que extrai título, texto, imagens e metadados automaticamente.</li>
+  <li><strong>spaCy:</strong> Motor de NLP usado para análise textual e extração de entidades (NER) em português.</li>
+  <li><strong>Telegram Bot API:</strong> Envia mensagens para um grupo ou canal com título, imagem, link e resumo das notícias.</li>
+  <li><strong>Streamlit:</strong> Plataforma web leve e intuitiva para exibição das notícias de forma interativa e responsiva.</li>
+  <li><strong>Docker + Docker Compose:</strong> Containeriza todo o projeto, facilitando o deploy local e em nuvem.</li>
+</ul>
+
+<h2>📂 Estrutura do Projeto</h2>
+<pre><code>.
+├── dags/
+│   └── noticias_corinthians_dag.py        # DAG com scraping, NLP e alertas
+├── dashboard/
+│   └── streamlit_app.py                   # Interface interativa com filtro e cards
+├── telegram_sender.py                     # Envio de mensagens ricas no Telegram
+├── data_ingestion/
+│   └── coletar_noticias.py                # Lógica de scraping
+├── data_processing/
+│   └── analisar_texto.py                  # NLP e extração de entidades
+├── database/
+│   └── mongodb_connector.py               # Conexão reutilizável com MongoDB
+├── config_secrets.py                      # Tokens e variáveis sensíveis
+├── docker-compose.yml                     # Infraestrutura local do projeto
+├── Dockerfile                             # Ambiente de execução
+└── requirements.txt                       # Dependências Python
+</code></pre>
+
+<h2>📊 O que o Projeto Faz</h2>
+<ul>
+  <li>⏱️ Executa coletas periódicas automaticamente com agendamento via Airflow.</li>
+  <li>🔍 Realiza scraping de vários portais esportivos confiáveis (Globo Esporte, Meu Timão, etc.).</li>
+  <li>🧠 Aplica NLP com spaCy para extrair e classificar entidades em pessoas, locais e organizações.</li>
+  <li>💾 Salva notícias completas e enriquecidas no MongoDB com controle contra duplicações.</li>
+  <li>📤 Envia notificações informativas e formatadas para um grupo Telegram em tempo real.</li>
+  <li>📈 Oferece uma interface web para explorar dados, filtrar por data/fonte e acessar cada notícia em detalhe.</li>
+</ul>
+
+<h2>🎨 Preview do Dashboard</h2>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/f4d4a5f3-69f7-4d2a-8d0f-a268e1d7a6d0" alt="resumo" />
+  <img src="https://github.com/user-attachments/assets/9a840145-0ee5-4dbb-8c3e-09fe1a37d05e" alt="entidades" />
+  <img src="https://github.com/user-attachments/assets/5b7a4a34-a956-4e65-938f-e60aff3a30ea" alt="noticia1" />
+  <img src="https://github.com/user-attachments/assets/6bdc34c8-3b81-4614-9f08-efe0d9b379e1" alt="noticia2" />
+</p>
+
+<h2>🔔 Preview do Telegram </h2>
+<img src="https://github.com/user-attachments/assets/1f49afca-b3a5-4c65-8b33-e837b311043c" alt="telegram1" />
+<img src="https://github.com/user-attachments/assets/eef1676b-8445-4579-92fe-665eb3dbba0a" alt="telegram2" />
